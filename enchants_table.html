@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoEnchants 附魔一览表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8892b0;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .stat-card .label {
+            color: #8892b0;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85em;
+        }
+
+        th {
+            background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
+            color: #fff;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .main-table th:first-child {
+            min-width: 120px;
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        .main-table td:first-child {
+            text-align: left;
+            padding-left: 15px;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        tr:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .check {
+            color: #00ff88;
+            font-size: 1.2em;
+        }
+
+        .curse {
+            color: #ff6b6b;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00d4ff;
+            display: inline-block;
+        }
+
+        /* 稀有度颜色 */
+        .rarity-common { color: #aaa; }
+        .rarity-uncommon { color: #55ff55; }
+        .rarity-rare { color: #5555ff; }
+        .rarity-epic { color: #aa00aa; }
+        .rarity-legendary { color: #ffaa00; }
+        .rarity-special { color: #ff55ff; }
+
+        .detail-table td:nth-child(1) { text-align: left; padding-left: 15px; }
+        .detail-table td:nth-child(4) { text-align: left; padding-left: 10px; max-width: 300px; }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .note {
+            background: rgba(255, 107, 107, 0.2);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #8892b0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EcoEnchants 附魔一览表</h1>
+        <p class="subtitle">服务器额外附魔完整列表</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">48</div>
+                <div class="label">总附魔数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">诅咒附魔</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">16</div>
+                <div class="label">装备类型</div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <strong>稀有度图例：</strong>
+            <div class="legend-item"><span class="rarity-common">■</span> 普通</div>
+            <div class="legend-item"><span class="rarity-uncommon">■</span> 罕见</div>
+            <div class="legend-item"><span class="rarity-rare">■</span> 稀有</div>
+            <div class="legend-item"><span class="rarity-epic">■</span> 史诗</div>
+            <div class="legend-item"><span class="rarity-legendary">■</span> 传说</div>
+            <div class="legend-item"><span class="rarity-special">■</span> 特殊</div>
+        </div>
+
+        <div class="note">
+            <strong>注：</strong> 附魔武器优先附魔原版附魔，否则会原版附魔过于昂贵！！
+        </div>
+
+        <h2 class="section-title">附魔总览表（按装备分列）</h2>
+
+        <div class="table-container">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>头盔</th>
+                        <th>胸甲</th>
+                        <th>护腿</th>
+                        <th>靴子</th>
+                        <th>剑</th>
+                        <th>斧</th>
+                        <th>镐</th>
+                        <th>铲</th>
+                        <th>锄</th>
+                        <th>弓</th>
+                        <th>弩</th>
+                        <th>三叉戟</th>
+                        <th>鞘翅</th>
+                        <th>盾牌</th>
+                        <th>剪刀</th>
+                        <th>鱼竿</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>旺盛</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>奥术防御</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>隐身</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>坚韧</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="curse">饥饿诅咒</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>窒息逃逸</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>光环</td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>耐力</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>轻羽步</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>简而优</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>跑路</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>逃脱</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>智慧</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="curse">无害诅咒</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>修罗</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>黑暗</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>兴奋剂</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>立方体主义</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>重击</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>灵巧</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>末地亲和</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>下界亲和</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>先发制人</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>潜影收割</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>屠宰</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>巨人杀手</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>斩首</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>生命偷取</td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>伐木工</td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="curse">厄运诅咒</td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="curse">不破咒</td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>炼狱之触</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>爆破挖掘</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>矿脉挖掘</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>挖掘</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>补充</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>三连射</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>闪光弹</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>跳击</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>BOSS猎手</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>迅速</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>传染</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>气流</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>双足飞龙</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td></tr>
+                    <tr><td>火箭节省器</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td></tr>
+                    <tr><td>反弹</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td><td></td></tr>
+                    <tr><td>伐木</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td><td></td></tr>
+                    <tr><td class="curse">永久诅咒</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">附魔详细信息</h2>
+
+        <!-- 护甲类 -->
+        <h3 style="color: #00d4ff; margin: 30px 0 15px 0;">护甲类附魔</h3>
+        <div class="table-container">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>最大等级</th>
+                        <th>稀有度</th>
+                        <th>效果描述</th>
+                        <th>适用装备</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>旺盛</td><td>4</td><td class="rarity-legendary">传说</td><td>提供 2.5×等级 的额外生命值</td><td>全套护甲</td></tr>
+                    <tr><td>奥术防御</td><td>5</td><td class="rarity-epic">史诗</td><td>4%×等级 几率忽略药水伤害</td><td>全套护甲</td></tr>
+                    <tr><td>隐身</td><td>2</td><td class="rarity-rare">稀有</td><td>受伤后有几率隐身数秒</td><td>全套护甲</td></tr>
+                    <tr><td>坚韧</td><td>2</td><td class="rarity-legendary">传说</td><td>造成伤害增加 2%×等级</td><td>全套护甲</td></tr>
+                    <tr><td class="curse">饥饿诅咒</td><td>1</td><td class="rarity-legendary">传说</td><td>增加 50% 的饥饿损失 (诅咒)</td><td>头盔</td></tr>
+                    <tr><td>窒息逃逸</td><td>2</td><td class="rarity-common">普通</td><td>10%×等级 几率忽略窒息伤害</td><td>头盔</td></tr>
+                    <tr><td>光环</td><td>2</td><td class="rarity-special">特殊</td><td>范围内玩家受伤减少 5%×等级</td><td>胸甲、护腿</td></tr>
+                    <tr><td>耐力</td><td>2</td><td class="rarity-rare">稀有</td><td>减少 20%×等级 奔跑饥饿消耗</td><td>胸甲</td></tr>
+                    <tr><td>轻羽步</td><td>1</td><td class="rarity-legendary">传说</td><td>跳跃时防止践踏庄稼</td><td>靴子</td></tr>
+                    <tr><td>简而优</td><td>4</td><td class="rarity-special">特殊</td><td>给予 5%×等级 移动速度提升</td><td>靴子</td></tr>
+                    <tr><td>跑路</td><td>2</td><td class="rarity-rare">稀有</td><td>生命值&lt;20%时获得 10%×等级 速度加成</td><td>靴子</td></tr>
+                    <tr><td>逃脱</td><td>2</td><td class="rarity-epic">史诗</td><td>受伤后获得短暂速度提升</td><td>靴子</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 近战武器类 -->
+        <h3 style="color: #ff6b6b; margin: 30px 0 15px 0;">近战武器附魔</h3>
+        <div class="table-container">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>最大等级</th>
+                        <th>稀有度</th>
+                        <th>效果描述</th>
+                        <th>适用装备</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="curse">无害诅咒</td><td>1</td><td class="rarity-legendary">传说</td><td>攻击有 15% 几率无效 (诅咒)</td><td>剑、斧</td></tr>
+                    <tr><td>修罗</td><td>2</td><td class="rarity-rare">稀有</td><td>生命值&lt;50%时暴击伤害增加 1.1-1.2倍</td><td>剑、斧</td></tr>
+                    <tr><td>黑暗</td><td>4</td><td class="rarity-legendary">传说</td><td>有几率让对手陷入黑暗状态</td><td>剑、斧</td></tr>
+                    <tr><td>兴奋剂</td><td>2</td><td class="rarity-rare">稀有</td><td>疾跑时攻速增加 5%×等级</td><td>剑、斧</td></tr>
+                    <tr><td>立方体主义</td><td>3</td><td class="rarity-rare">稀有</td><td>对史莱姆/岩浆怪伤害+10%×等级</td><td>剑、斧、弓、弩</td></tr>
+                    <tr><td>重击</td><td>2</td><td class="rarity-epic">史诗</td><td>暴击伤害增加 5%×等级</td><td>剑、斧</td></tr>
+                    <tr><td>灵巧</td><td>2</td><td class="rarity-epic">史诗</td><td>攻击速度提高 5%×等级</td><td>剑、斧</td></tr>
+                    <tr><td>末地亲和</td><td>2</td><td class="rarity-epic">史诗</td><td>在末地造成的伤害增加 5%×等级</td><td>剑、斧、弓、三叉戟</td></tr>
+                    <tr><td>下界亲和</td><td>2</td><td class="rarity-epic">史诗</td><td>在下界造成的伤害增加 10%×等级</td><td>剑、斧、弓、三叉戟</td></tr>
+                    <tr><td>先发制人</td><td>3</td><td class="rarity-uncommon">罕见</td><td>对满血目标额外伤害 10%×等级</td><td>剑、斧</td></tr>
+                    <tr><td>潜影收割</td><td>2</td><td class="rarity-epic">史诗</td><td>提高潜影壳掉落率</td><td>剑、斧</td></tr>
+                    <tr><td>屠宰</td><td>4</td><td class="rarity-common">普通</td><td>对被动生物伤害+2.5×等级</td><td>剑、斧</td></tr>
+                    <tr><td>巨人杀手</td><td>2</td><td class="rarity-rare">稀有</td><td>对血量比你多的敌人造成额外伤害</td><td>剑、斧</td></tr>
+                    <tr><td>斩首</td><td>1</td><td class="rarity-special">特殊</td><td>5%×等级 几率掉落被击杀玩家头颅</td><td>剑、斧、弓、三叉戟</td></tr>
+                    <tr><td>生命偷取</td><td>2</td><td class="rarity-rare">稀有</td><td>治疗 5%×等级 的造成伤害（上限10）</td><td>剑、斧</td></tr>
+                    <tr><td>伐木工</td><td>3</td><td class="rarity-rare">稀有</td><td>一次砍倒 4×等级 方块的树木</td><td>斧</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 工具类 -->
+        <h3 style="color: #ffaa00; margin: 30px 0 15px 0;">工具类附魔</h3>
+        <div class="table-container">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>最大等级</th>
+                        <th>稀有度</th>
+                        <th>效果描述</th>
+                        <th>适用装备</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>智慧</td><td>3</td><td class="rarity-uncommon">罕见</td><td>经验掉落增加 100%+20%×等级</td><td>剑、斧、镐、铲、锄、弓、弩、三叉戟</td></tr>
+                    <tr><td>炼狱之触</td><td>1</td><td class="rarity-legendary">传说</td><td>自动熔炼挖掘的方块</td><td>镐、铲</td></tr>
+                    <tr><td>爆破挖掘</td><td>2</td><td class="rarity-special">特殊</td><td>5%×等级 几率3x3范围挖掘</td><td>镐</td></tr>
+                    <tr><td>矿脉挖掘</td><td>2</td><td class="rarity-rare">稀有</td><td>挖掘 2+2×等级 同矿脉方块</td><td>镐</td></tr>
+                    <tr><td>挖掘</td><td>1</td><td class="rarity-legendary">传说</td><td>额外挖掘 1×等级 个方块</td><td>铲</td></tr>
+                    <tr><td>补充</td><td>1</td><td class="rarity-legendary">传说</td><td>作物自动重新种植</td><td>锄</td></tr>
+                    <tr><td class="curse">厄运诅咒</td><td>1</td><td class="rarity-legendary">传说</td><td>15% 几率不掉落物品 (诅咒)</td><td>斧、镐、铲、锄</td></tr>
+                    <tr><td class="curse">不破咒</td><td>1</td><td class="rarity-legendary">传说</td><td>15% 几率无法破坏方块 (诅咒)</td><td>斧、镐、铲、锄</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 远程武器类 -->
+        <h3 style="color: #55ff55; margin: 30px 0 15px 0;">远程武器附魔</h3>
+        <div class="table-container">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>最大等级</th>
+                        <th>稀有度</th>
+                        <th>效果描述</th>
+                        <th>适用装备</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>三连射</td><td>1</td><td class="rarity-legendary">传说</td><td>一次射出3箭</td><td>弓</td></tr>
+                    <tr><td>闪光弹</td><td>6</td><td class="rarity-rare">稀有</td><td>有几率使对手致盲</td><td>弓、弩</td></tr>
+                    <tr><td>跳击</td><td>2</td><td class="rarity-uncommon">罕见</td><td>空中伤害增加 5%×等级</td><td>弓、弩</td></tr>
+                    <tr><td>BOSS猎手</td><td>3</td><td class="rarity-rare">稀有</td><td>对BOSS伤害+10%×等级</td><td>弓、弩</td></tr>
+                    <tr><td>迅速</td><td>2</td><td class="rarity-epic">史诗</td><td>更快射出满速度的箭</td><td>弓</td></tr>
+                    <tr><td>传染</td><td>2</td><td class="rarity-legendary">传说</td><td>5%×等级 落地生成毒气云</td><td>三叉戟</td></tr>
+                    <tr><td>气流</td><td>2</td><td class="rarity-epic">史诗</td><td>持有时移动速度+5%×等级</td><td>三叉戟</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 特殊装备类 -->
+        <h3 style="color: #aa00aa; margin: 30px 0 15px 0;">特殊装备附魔</h3>
+        <div class="table-container">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th>附魔名称</th>
+                        <th>最大等级</th>
+                        <th>稀有度</th>
+                        <th>效果描述</th>
+                        <th>适用装备</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>双足飞龙</td><td>2</td><td class="rarity-epic">史诗</td><td>近战伤害增加 5%×等级</td><td>鞘翅</td></tr>
+                    <tr><td>火箭节省器</td><td>2</td><td class="rarity-rare">稀有</td><td>20%×等级 几率不消耗烟花</td><td>鞘翅</td></tr>
+                    <tr><td>反弹</td><td>3</td><td class="rarity-epic">史诗</td><td>反弹 5%×等级 受到的伤害</td><td>盾牌</td></tr>
+                    <tr><td>伐木</td><td>4</td><td class="rarity-common">普通</td><td>提高树叶掉落苹果几率</td><td>剪刀</td></tr>
+                    <tr><td class="curse">永久诅咒</td><td>1</td><td class="rarity-legendary">传说</td><td>防止在铁砧上修改此物品 (诅咒)</td><td>所有装备</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>EcoEnchants 附魔一览表 | 共 48 个额外附魔</p>
+            <p>由 Claude 自动生成</p>
+        </footer>
+    </div>
+</body>
+</html>
